@@ -21,6 +21,8 @@ first_model <-
     formula = flying_time ~ length + width,
     data = analysis_data,
     family = gaussian(),
+    # Specify priors (good practice to do it)
+    # These are the default values 
     prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
     prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),
     prior_aux = exponential(rate = 1, autoscale = TRUE),
@@ -34,4 +36,27 @@ saveRDS(
   file = "models/first_model.rds"
 )
 
+#### Second model ####
+# When width doesn't matter 
+
+### Model data ####
+first_model <-
+  stan_glm(
+    formula = flying_time ~ length,
+    data = analysis_data,
+    family = gaussian(),
+    # Specify priors (good practice to do it)
+    # These are the default values 
+    prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
+    prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),
+    prior_aux = exponential(rate = 1, autoscale = TRUE),
+    seed = 853
+  )
+
+
+#### Save model ####
+saveRDS(
+  first_model,
+  file = "models/second_model.rds"
+)
 
